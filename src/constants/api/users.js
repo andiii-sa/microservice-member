@@ -1,6 +1,6 @@
 import axios from "configs/axios";
 
-export default {
+const users = {
   login: (credentials) => axios.post(`/users/login`, credentials),
   register: (payload) => axios.post(`/users/register`, payload),
   refresh: (credentials) =>
@@ -12,3 +12,5 @@ export default {
   logout: () => axios.post("/users/logout"),
   details: () => axios.get("/users"),
 };
+
+export default users;

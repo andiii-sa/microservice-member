@@ -12,7 +12,7 @@ const initialState = {
   message: "",
 };
 
-export default function (state = initialState, action) {
+const courses = function (state = initialState, action) {
   switch (action.type) {
     case STATUS_COURSES:
       return {
@@ -54,4 +54,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default courses;

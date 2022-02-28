@@ -68,7 +68,7 @@ function Sidebar({ match, history }) {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`${process.env.REACT_APP_FRONTPAGE_URL}/library`}
+                href={`${process.env.REACT_APP_FRONTPAGE_URL}/courses`}
                 className={[
                   "nav-link relative flex items-center py-3 px-5 transition-all duration-200 hover:text-white active:text-white focus:outline-none w-full text-left text-indigo-500",
                 ].join(" ")}

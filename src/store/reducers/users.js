@@ -2,7 +2,7 @@ import { POPULATE_PROFILE } from "constants/types/users";
 
 const initialState = null;
 
-export default function (state = initialState, action) {
+const users = function (state = initialState, action) {
   switch (action.type) {
     case POPULATE_PROFILE:
       return action.payload;
@@ -10,4 +10,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default users;

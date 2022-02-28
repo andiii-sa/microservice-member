@@ -22,7 +22,7 @@ export default function Joined({ history, match }) {
       .catch((err) => {
         setState({ isLoading: false, isError: true, data: err });
       });
-  }, [match.params.class]);
+  }, [match]);
 
   if (state.isLoading) return <Loading />;
   if (state.isError) return <ServerError />;
