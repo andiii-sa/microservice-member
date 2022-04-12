@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { ReactComponent as DefaultUser } from "assets/images/default-avatar.svg";
 
@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import users from "constants/api/users";
 
 function Sidebar({ match, history }) {
+  const [toggleMenu, setToggleMenu] = useState(false);
+
   const getNavLinkClass = (path) => {
     return match.path === path
       ? "active text-white bg-indigo-900"
@@ -22,30 +24,49 @@ function Sidebar({ match, history }) {
     });
   }
 
+  const sidebarStyle = {
+    width: 280,
+    left: window.innerWidth < 640 && !toggleMenu ? "-280px" : 0,
+  };
+
   return (
     <>
+      <div className="flex md:hidden">
+        <button
+          onClick={() => setToggleMenu((prev) => !prev)}
+          className={["toggle z-50", toggleMenu ? "active" : ""].join(" ")}
+        ></button>
+      </div>
       <aside
-        className="bg-indigo-1000 max-h-screen h-screen overflow-y-auto"
-        style={{ width: 280 }}
+        className="transition-all duration-300 bg-indigo-1000 max-h-screen h-screen overflow-y-auto min-h-full fixed md:relative z-50"
+        style={sidebarStyle}
       >
+        {toggleMenu && (
+          <div
+            className="overlay"
+            onClick={() => setToggleMenu((prev) => !prev)}
+          ></div>
+        )}
         <div
-          className="max-h-screen h-screen fixed bg-indigo-1000 flex flex-col content-between"
+          className="max-h-screen h-screen fixed bg-indigo-1000 flex flex-col content-between z-50"
           style={{ width: 280 }}
         >
           <div className="flex flex-col text-center mt-8">
-            <div className="border border-indigo-500 mx-auto inline-flex rounded-full overflow-hidden mb-3">
-              {USERS?.avatar ? (
-                <img
-                  src={USERS?.avatar}
-                  alt={USERS?.name}
-                  className="object-cover w-24 h-24"
-                />
-              ) : (
-                <DefaultUser
-                  className="fill-indigo-500 object-cover w-24 h-24"
-                  style={{ width: 90, height: 90 }}
-                ></DefaultUser>
-              )}
+            <div className="border border-indigo-500 mx-auto inline-flex rounded-full p-2 overflow-hidden mb-3">
+              <div className="rounded-full overflow-hidden">
+                {USERS?.avatar ? (
+                  <img
+                    src={USERS?.avatar}
+                    alt={USERS?.name}
+                    className="object-cover w-24 h-24"
+                  />
+                ) : (
+                  <DefaultUser
+                    className="fill-indigo-500 object-cover w-24 h-24"
+                    style={{ width: 90, height: 90 }}
+                  ></DefaultUser>
+                )}
+              </div>
             </div>
             <h6 className="text-white text-xl">{USERS?.name ?? "Username"}</h6>
             <span className="text-indigo-500 text-sm">

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 import courses from "constants/api/courses";
 
 import ServerError from "./500";
@@ -12,32 +12,27 @@ export default function Joined({ history, match }) {
     data: {},
   }));
 
+  const joining = useCallback(async () => {
+    try {
+      const details = await courses.details(match.params.class);
+      const joined = await courses.join(match.params.class);
+
+      if (joined.data.snap_url) window.location.href = joined.data.snap_url;
+      else setState({ isLoading: false, isError: true, data: details });
+    } catch (error) {
+      console.log("error join >>", error);
+
+      if (error?.response?.data?.message === "user already take this course")
+        history.push(`/courses/${match.params.class}`);
+    }
+  }, [match.params.class]);
+
   useEffect(() => {
-    console.log("match >>> ", match);
-    courses
-      .details(match.params.class)
-      .then((res) => {
-        setState({ isLoading: false, isError: false, data: res });
-      })
-      .catch((err) => {
-        setState({ isLoading: false, isError: true, data: err });
-      });
-  }, [match]);
+    joining();
+  }, [joining]);
 
   if (state.isLoading) return <Loading />;
   if (state.isError) return <ServerError />;
-
-  function joining() {
-    courses
-      .join(match.params.class)
-      .then((res) => {
-        history.push(`/courses/${match.params.class}`);
-      })
-      .catch((err) => {
-        if (err?.response?.data?.message === "user already take this course")
-          history.push(`/courses/${match.params.class}`);
-      });
-  }
 
   return (
     <>
@@ -51,12 +46,12 @@ export default function Joined({ history, match }) {
           You have successfully joined our
           <strong>{state?.data?.name ?? "Class Name"}</strong> class
         </p>
-        <span
-          onClick={joining}
+        <Link
+          to={`/courses/${match.params.class}`}
           className="cursor-pointer bg-orange-500 hover:bg-orang-400 transition-all duration-200 focus:outline-none shadow-inner text-white px-6 py-3 mt-5"
         >
           Start Learn
-        </span>
+        </Link>
       </section>
     </>
   );

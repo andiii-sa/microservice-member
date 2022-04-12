@@ -5,9 +5,9 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="container mx-auto">
-        <div className="flex justify-between">
-          <div className="w-1/6">
+      <footer className="container px-4 mx-auto">
+        <div className="flex flex-wrap justify-between">
+          <div className="w-full md:w-1/6">
             <h6 className="text-white">Company</h6>
             <ul className="mt-4">
               <li className="mt-2">
@@ -40,7 +40,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className="w-1/6">
+          <div className="w-full md:w-1/6">
             <h6 className="text-white">Student</h6>
             <ul className="mt-4">
               <li className="mt-2">
@@ -73,7 +73,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className="w-1/6">
+          <div className="w-full md:w-1/6">
             <h6 className="text-white">Touch Us</h6>
             <p className="mt-4 text-indigo-500 leading-loose">
               Micro Centre <br />
@@ -82,18 +82,18 @@ export default function Footer() {
               +21 2020 5555
             </p>
           </div>
-          <div className="w-2/6">
+          <div className="w-full md:w-2/6">
             <h6 className="text-white">Promotions</h6>
             <p className="mt-4 text-indigo-500 ">
               Submit your email for new updates
             </p>
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className="flex mt-6">
               <input
                 type="text"
-                className="bg-white focus:outline-none border-0 px-6 py-3 mt-6"
+                className="bg-white focus:outline-none border-0 px-4 md:px-6 py-3 w-full md:w-1/2"
                 placeholder="Your email address"
               />
-              <button className="bg-orange-500 hover:bg-orang-400 transition-all duration-200 focus:outline-none shadow-inner text-white px-6 py-3">
+              <button className="bg-orange-500 hover:bg-orang-400 transition-all duration-200 focus:outline-none shadow-inner text-white px-4 md:px-6 py-3 whitespace-nowrap">
                 Daftar Now
               </button>
             </form>

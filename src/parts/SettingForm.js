@@ -56,6 +56,7 @@ function SettingForm({ details }) {
     if (payload.profession === "others")
       payload.profession = state.otherProfession;
 
+    // bagian upload avatar dan asal avatar ke payload
     if (state.avatar.indexOf("base64") > -1) {
       const avatar = await media.upload(state.avatar);
       payload.avatar = avatar.data.image;
@@ -127,7 +128,7 @@ function SettingForm({ details }) {
 
       <section className="flex flex-col mt-8">
         <div className="flex items-center pb-24">
-          <div className="w-4/12">
+          <div className="w-full md:w-4/12">
             <form onSubmit={submit}>
               <Input
                 error={ERRORS?.name?.message}

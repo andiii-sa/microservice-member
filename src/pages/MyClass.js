@@ -17,8 +17,8 @@ import {
 
 function EmptyState() {
   return (
-    <section className="flex h-screen items-center">
-      <div className="w-5/12 text-center py-12 mx-auto">
+    <section className="flex h-screen items-center relative z-50 bg-white">
+      <div className="w-full md:w-5/12 text-center py-12 mx-auto">
         <img
           src={`${process.env.PUBLIC_URL}/assets/images/illustration-myclass-empty.jpg`}
           alt="Success join class"
@@ -65,22 +65,22 @@ export default function MyClass() {
       <div className="flex">
         <Sidebar></Sidebar>
         <main className="flex-1">
-          <div className="px-16">
+          <div className="px-4 md:px-16">
             {COURSES.status === "loading" && <Loading />}
             {COURSES.status === "error" && COURSES.message}
             {COURSES.status === "ok" &&
               (COURSES.total > 0 ? (
                 <>
-                  <section className="flex flex-col mt-8">
-                    <h1 className="text-4xl text-gray-900 font-medium">
+                  <section className="flex flex-col mt-8 pl-12 md:pl-0">
+                    <h1 className="text-xl md:text-4xl text-gray-900 font-medium">
                       My Class
                     </h1>
-                    <p className="text-lg text-gray-600">
+                    <p className="text-sm md:text-lg text-gray-600">
                       Continue learning to pursue your dreams
                     </p>
                   </section>
                   <section className="flex flex-col mt-8">
-                    <div className="flex justify-start items-center -mx-4">
+                    <div className="flex flex-wrap justify-start items-center -mx-4">
                       {Object.values(COURSES.data)?.map?.((item, index) => {
                         return <ListClassItem key={index} data={item.course} />;
                       })}

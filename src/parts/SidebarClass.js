@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { ReactComponent as ArrowBack } from "assets/images/icon-arrow-back.svg";
 
 import { Link, withRouter } from "react-router-dom";
 
 function SidebarClass({ data, match, defaultUri }) {
+  const [toggleMenu, setToggleMenu] = useState(false);
+
   const getNavLinkClass = (path) => {
     return match.url === path || defaultUri === path
       ? "text-teal-500"
@@ -41,17 +43,34 @@ function SidebarClass({ data, match, defaultUri }) {
       });
   });
 
+  const sidebarStyle = {
+    width: 280,
+    left: window.innerWidth < 640 && !toggleMenu ? "-280px" : 0,
+  };
+
   return (
     <>
+      <div className="flex md:hidden">
+        <button
+          onClick={() => setToggleMenu((prev) => !prev)}
+          className={["toggle z-50", toggleMenu ? "active" : ""].join(" ")}
+        ></button>
+      </div>
       <aside
-        className="bg-indigo-1000 max-h-screen h-screen overflow-y-auto"
-        style={{ width: 280 }}
+        className="bg-indigo-1000 max-h-screen h-screen overflow-y-auto transition-all duration-300 min-h-full fixed md:relative z-50"
+        style={sidebarStyle}
       >
+        {toggleMenu && (
+          <div
+            className="overlay"
+            onClick={() => setToggleMenu((prev) => !prev)}
+          ></div>
+        )}
         <div
-          className="max-h-screen h-screen fixed bg-indigo-1000 flex flex-col content-between"
+          className="max-h-screen h-screen fixed bg-indigo-1000 flex flex-col content-between z-10"
           style={{ width: 280 }}
         >
-          <ul className="main-menu mt-12">
+          <ul className="main-menu mt-12 overflow-y-auto">
             <li>
               <Link
                 to="/"
